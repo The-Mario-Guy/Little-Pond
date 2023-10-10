@@ -26,10 +26,10 @@ public class Animation : MonoBehaviour
     {
 
         {
+            t = delayBetweenInputs;
             frames++;
             frames %= framesTextures.Length;
             GetComponent<Renderer>().material.mainTexture = framesTextures[frames];
-            t = delayBetweenInputs;
         }
         
 
