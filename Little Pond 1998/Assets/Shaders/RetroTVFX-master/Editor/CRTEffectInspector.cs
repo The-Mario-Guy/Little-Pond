@@ -4,6 +4,8 @@ using System.Collections;
 
 using UnityEditor.AnimatedValues;
 using RetroTVFX;
+using System;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 
 [CustomEditor(typeof(CRTEffect))]
 public class CRTEffectInspector : Editor
@@ -46,8 +48,10 @@ public class CRTEffectInspector : Editor
 
     SerializedProperty rfNoise;
 	SerializedProperty lumaSharpen;
+    SerializedProperty VideoType;
 
-	AnimBool showTVCurvatureProperties;
+
+    AnimBool showTVCurvatureProperties;
     AnimBool showPixelMaskProperties;
     AnimBool showRollingFlickerProperties;
     AnimBool showNTSCFlickerProperties;
@@ -125,12 +129,12 @@ public class CRTEffectInspector : Editor
         showPixelMaskProperties = newFoldout(enablePixelMask.boolValue);
         showRollingFlickerProperties = newFoldout(enableRollingFlicker.boolValue);
 
-        showNTSCFlickerProperties = newFoldout(videoMode.enumValueIndex == (int)VideoType.Composite || videoMode.enumValueIndex == (int)VideoType.SVideo);
+       // showNTSCFlickerProperties = newFoldout(val: videoMode.enumValueIndex == (int)VideoType.Composite || videoMode.enumValueIndex == (int)VideoType.SVideo);
         showAntiFlicker = newFoldout(enableBurstCountAnimation.boolValue);
 
         showRGBBits = newFoldout(quantizeRGB.boolValue);
-        showQuantizeRGB = newFoldout(videoMode.enumValueIndex != (int)VideoType.VGAFast);
-        showRFNoise = newFoldout(videoMode.enumValueIndex == (int)VideoType.RF);
+        //showQuantizeRGB = newFoldout(val: videoMode.enumValueIndex != (int)VideoType.VGAFast);
+       // showRFNoise = newFoldout(val: videoMode.enumValueIndex == (int)VideoType.RF);
     }
 
     public override void OnInspectorGUI()
@@ -140,7 +144,7 @@ public class CRTEffectInspector : Editor
         filterQuality.enumValueIndex = EditorGUILayout.Popup("Filter Quality", filterQuality.enumValueIndex, filterQualityNames);
         videoMode.enumValueIndex = EditorGUILayout.Popup("Video Mode", videoMode.enumValueIndex, videoModes);
 
-        showQuantizeRGB.target = videoMode.enumValueIndex != (int)VideoType.VGAFast;
+      //  showQuantizeRGB.target = videoMode.enumValueIndex != (int)VideoType.VGAFast;
         using (var group = new EditorGUILayout.FadeGroupScope(showQuantizeRGB.faded))
         {
             if (group.visible)
@@ -227,12 +231,12 @@ public class CRTEffectInspector : Editor
         }
         EditorGUI.indentLevel--;
 
-        bool showNTSCFlickerProps = videoMode.enumValueIndex != (int)VideoType.VGA && videoMode.enumValueIndex != (int)VideoType.VGAFast;
-        showNTSCFlickerProperties.target = showNTSCFlickerProps;
+    //    bool showNTSCFlickerProps = videoMode.enumValueIndex != (int)VideoType.VGA && videoMode.enumValueIndex != (int)VideoType.VGAFast;
+       // showNTSCFlickerProperties.target = showNTSCFlickerProps;
 
         GUILayout.Space(10f);
 
-        showRFNoise.target = videoMode.enumValueIndex == (int)VideoType.RF;
+      //  showRFNoise.target = videoMode.enumValueIndex == (int)VideoType.RF;
 
         using (var group = new EditorGUILayout.FadeGroupScope(showRFNoise.faded))
         {
@@ -264,14 +268,14 @@ public class CRTEffectInspector : Editor
                 iqOffsetX.floatValue = EditorGUILayout.Slider("Chroma Offset X", iqOffsetX.floatValue, -0.5f, 0.5f);
                 iqOffsetY.floatValue = EditorGUILayout.Slider("Chroma Offset Y", iqOffsetY.floatValue, -0.5f, 0.5f);
 
-				if (videoMode.enumValueIndex == (int)VideoType.RF || videoMode.enumValueIndex == (int)VideoType.Composite)
+				//if (videoMode.enumValueIndex == (int)VideoType.RF || videoMode.enumValueIndex == (int)VideoType.Composite)
 				{
 					lumaSharpen.floatValue = EditorGUILayout.Slider("Luma Sharpness", lumaSharpen.floatValue, 0f, 4f);
 				}
 
                 EditorGUI.indentLevel--;
 
-                if (videoMode.enumValueIndex != (int)VideoType.Component)
+               // if (videoMode.enumValueIndex != (int)VideoType.Component)
                 {
                     GUILayout.Space(10f);
 

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
  
  
-public class CRTEffect : MonoBehaviour
+public class CRT : MonoBehaviour
 {
     public Shader CRTShader;
    
