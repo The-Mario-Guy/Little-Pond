@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PS1Intro.unity
+    guid: f264cb997b1c6aa4d9f77bfd494c34a7
+  - enabled: 1
+    path: Assets/Scenes/WingCapStudios.unity
+    guid: f4f97297ab11a6f4d9f10b516dbe7b62
+  - enabled: 1
+    path: Assets/Scenes/Title Screen.unity
+    guid: 8a7050b631857f248a7720f2e2a696f0
+  - enabled: 1
+    path: Assets/Scenes/Test.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
