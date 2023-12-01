@@ -199,7 +199,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c7c12346bbab5e64da2e228aa58d07aa, type: 2}
+  - {fileID: 2100000, guid: 25011469d24c1df47aace9829d0081b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 1359485262}
   - component: {fileID: 1359485261}
   - component: {fileID: 1359485264}
+  - component: {fileID: 1359485265}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -378,6 +379,20 @@ MonoBehaviour:
   _PostProcessShader: {fileID: 4800000, guid: 56d52fd5b7c6911468179e5a7359ce0e, type: 3}
   _PostProcessShaderAccurate: {fileID: 4800000, guid: 2ebed186567d3c244a87538744a62920, type: 3}
   _InterlacingShader: {fileID: 4800000, guid: 03ebd34214b41ef459d7ee6753b062be, type: 3}
+--- !u!114 &1359485265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359485260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e2c0e5f0aa0c8478cc3d81680f0e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneNumber: 1
+  secondsLeft: 17
 --- !u!1 &1586766928
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,7 +553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d84170f671a42544ae5221ecffcce0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vid: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
