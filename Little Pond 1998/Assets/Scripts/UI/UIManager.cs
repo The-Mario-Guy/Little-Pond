@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    public TextMeshProUGUI cogtText;
+
     private static UIManager _instance;
     public static UIManager Instance
     {
@@ -19,5 +23,9 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+    }
+    public void UpdateCogText(int cog)
+    {
+        cogtText.text = ""+cog;
     }
 }

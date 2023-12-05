@@ -13,12 +13,13 @@ public class MainPlayerController : MonoBehaviour
     
     void Start()
     {
-        
+        _cogs = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        UIManager.Instance.UpdateCogText(_cogs);
         Movement();
     }
     void Movement()
