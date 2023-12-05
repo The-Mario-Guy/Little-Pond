@@ -8,6 +8,8 @@ public class LevelLoader : MonoBehaviour
     public int sceneNumber;
     public float transitionTime = 1f;
     public Animator transition;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +28,14 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+        StartCoroutine(LoadLevel());
     }
 
-    IEnumerator LoadLevel(int levelIndex)
+    IEnumerator LoadLevel()
     {
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);
-       SceneManager.LoadScene(levelIndex);
+       SceneManager.LoadScene(sceneNumber);
     }
+    
 }
