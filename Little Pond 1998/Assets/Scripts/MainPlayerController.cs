@@ -7,6 +7,10 @@ public class MainPlayerController : MonoBehaviour
     // Start is called before the first frame update
     public float _moveSpeed = 20;
     public Rigidbody _rigidBody;
+
+    [SerializeField] private int _cogs;
+    private static MainPlayerController _instance;
+    
     void Start()
     {
         
@@ -25,4 +29,25 @@ public class MainPlayerController : MonoBehaviour
         transform.Translate(xValue, 0f, zValue);
 
     }
+    public static MainPlayerController Instance
+    {
+        get
+        {
+            if (_instance == null )
+            {
+                Debug.LogError("Player is Null");
+            }
+            return _instance;
+        }
+
+    }
+    private void Awake()
+    {
+        _instance = this;
+    }
+    public void AddCoins()
+    {
+        _cogs++;
+    }
+
 }
