@@ -950,6 +950,7 @@ Animator:
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &616061441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1042,6 +1043,8 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 807544719}
   m_SourcePrefab: {fileID: 100100000, guid: 4991e841f97824060a64e6aa98ae4a03, type: 3}
+=======
+>>>>>>> parent of 351356c (EEEEE)
 =======
 >>>>>>> parent of 351356c (EEEEE)
 --- !u!1 &711401517
@@ -1676,6 +1679,7 @@ MonoBehaviour:
   _TriangleSortMode: 0
   _DepthDebugView: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1561727698 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 4991e841f97824060a64e6aa98ae4a03, type: 3}
@@ -1687,10 +1691,15 @@ MonoBehaviour:
 --- !u!1 &1582210232
 GameObject:
 >>>>>>> parent of 351356c (EEEEE)
+=======
+--- !u!1 &1582210232
+GameObject:
+>>>>>>> parent of 351356c (EEEEE)
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
   m_GameObject: {fileID: 1561727698}
   m_Enabled: 1
@@ -1702,6 +1711,8 @@ GameObject:
   _yAngle: 0
   _zAngle: -3
 =======
+=======
+>>>>>>> parent of 351356c (EEEEE)
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1582210234}
@@ -1802,6 +1813,9 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+<<<<<<< HEAD
+>>>>>>> parent of 351356c (EEEEE)
+=======
 >>>>>>> parent of 351356c (EEEEE)
 --- !u!1 &1615012791
 GameObject:
@@ -1898,6 +1912,7 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 20.389, y: -7.433, z: 40.61}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &1681442690
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1974,6 +1989,8 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1561727702}
   m_SourcePrefab: {fileID: 100100000, guid: 4991e841f97824060a64e6aa98ae4a03, type: 3}
+=======
+>>>>>>> parent of 351356c (EEEEE)
 =======
 >>>>>>> parent of 351356c (EEEEE)
 --- !u!1 &1755464902
