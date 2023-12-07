@@ -951,6 +951,7 @@ Animator:
   m_WriteDefaultValuesOnDisable: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &616061441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1043,6 +1044,8 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 807544719}
   m_SourcePrefab: {fileID: 100100000, guid: 4991e841f97824060a64e6aa98ae4a03, type: 3}
+=======
+>>>>>>> parent of 351356c (EEEEE)
 =======
 >>>>>>> parent of 351356c (EEEEE)
 =======
@@ -1680,6 +1683,7 @@ MonoBehaviour:
   _DepthDebugView: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1561727698 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 4991e841f97824060a64e6aa98ae4a03, type: 3}
@@ -1695,10 +1699,15 @@ GameObject:
 --- !u!1 &1582210232
 GameObject:
 >>>>>>> parent of 351356c (EEEEE)
+=======
+--- !u!1 &1582210232
+GameObject:
+>>>>>>> parent of 351356c (EEEEE)
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   m_GameObject: {fileID: 1561727698}
@@ -1711,6 +1720,8 @@ GameObject:
   _yAngle: 0
   _zAngle: -3
 =======
+=======
+>>>>>>> parent of 351356c (EEEEE)
 =======
 >>>>>>> parent of 351356c (EEEEE)
   serializedVersion: 6
@@ -1814,6 +1825,9 @@ Animator:
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 351356c (EEEEE)
+=======
 >>>>>>> parent of 351356c (EEEEE)
 =======
 >>>>>>> parent of 351356c (EEEEE)
@@ -1913,6 +1927,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 20.389, y: -7.433, z: 40.61}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &1681442690
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1989,6 +2004,8 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1561727702}
   m_SourcePrefab: {fileID: 100100000, guid: 4991e841f97824060a64e6aa98ae4a03, type: 3}
+=======
+>>>>>>> parent of 351356c (EEEEE)
 =======
 >>>>>>> parent of 351356c (EEEEE)
 =======
