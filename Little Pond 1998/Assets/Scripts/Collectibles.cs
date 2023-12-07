@@ -12,6 +12,7 @@ public class Collectibles : MonoBehaviour
         if (other.tag == "Player")
         {
             collectedSFX.Play();
+            MainPlayerController.Instance.AddCoins();
             StartCoroutine(collected());
         }
         else
@@ -21,7 +22,7 @@ public class Collectibles : MonoBehaviour
     }
     IEnumerator collected()
     {
-        MainPlayerController.Instance.AddCoins();
+        
         yAxis = 0.1f;
         yield return new WaitForSeconds(0.2f);
         yAxis = 0.2f;

@@ -19,7 +19,7 @@ public class MainPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UIManager.Instance.UpdateCogText(_cogs);
+        //UIManager.Instance.UpdateCogText(_cogs);
         Movement();
     }
     void Movement()
@@ -44,7 +44,9 @@ public class MainPlayerController : MonoBehaviour
     }
     private void Awake()
     {
-        _instance = this;
+          _instance = this;
+          
+        
     }
     public void AddCoins()
     {

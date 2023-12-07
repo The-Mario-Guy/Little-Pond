@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI cogtText;
+    //public TextMeshProUGUI cogtText;
 
-    private static UIManager _instance;
-    public static UIManager Instance
+    private static GameManager _instance;
+    public static GameManager Instance
     {
         get
         {
@@ -22,10 +22,19 @@ public class UIManager : MonoBehaviour
     }
     private void Awake()
     {
-        _instance = this;
+        if (Instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(Instance);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
     public void UpdateCogText(int cog)
     {
-        cogtText.text = ""+cog;
+        //cogtText.text = ""+cog;
     }
 }
