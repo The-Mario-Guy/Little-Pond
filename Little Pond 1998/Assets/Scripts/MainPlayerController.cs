@@ -8,12 +8,12 @@ public class MainPlayerController : MonoBehaviour
     public float _moveSpeed = 20;
     public Rigidbody _rigidBody;
 
-    [SerializeField] private int _cogs;
+    //[SerializeField] private int _cogs;
     private static MainPlayerController _instance;
     
     void Start()
     {
-        _cogs = 0;
+        //_cogs = 0;
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class MainPlayerController : MonoBehaviour
     {
         //OG UIManager
         Movement();
-        UIManager.Instance.UpdateCogText(_cogs);
+        
         
     }
     void Movement()
@@ -48,9 +48,9 @@ public class MainPlayerController : MonoBehaviour
     {
         _instance = this;
     }
-    public void AddCoins()
-    {
-        _cogs++;
-    }
+    //public void AddCoins()
+    //{
+    //    _cogs++;
+    //}
 
 }

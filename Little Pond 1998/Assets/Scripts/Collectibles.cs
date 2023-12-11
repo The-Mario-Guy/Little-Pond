@@ -25,7 +25,7 @@ public class Collectibles : MonoBehaviour
     }
     IEnumerator collected()
     {
-        MainPlayerController.Instance.AddCoins();
+       GameManager.Instance.AddCoins();
         yAxis = 0.1f;
         yield return new WaitForSeconds(0.2f);
         yAxis = 0.2f;
