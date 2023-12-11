@@ -5,13 +5,17 @@ using static System.TimeZoneInfo;
 
 public class Collectibles : MonoBehaviour
 {
+    public AudioClip[] sounds;
+    private AudioSource source;
+
     private float yAxis;
-    public AudioSource collectedSFX;
+    //public AudioSource collectedSFX;
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            collectedSFX.Play();
+            source.clip = sounds[Random.Range(0, sounds.Length)];
+            source.PlayOneShot(source.clip);
             StartCoroutine(collected());
         }
         else
@@ -37,6 +41,6 @@ public class Collectibles : MonoBehaviour
     }
     private void Start()
     {
-        collectedSFX = GetComponent<AudioSource>();
+        source = GetComponent<AudioSource>();
     }
 }

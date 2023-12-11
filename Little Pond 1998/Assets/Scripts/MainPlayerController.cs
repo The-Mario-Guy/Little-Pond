@@ -19,8 +19,10 @@ public class MainPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UIManager.Instance.UpdateCogText(_cogs);
+        //OG UIManager
         Movement();
+        UIManager.Instance.UpdateCogText(_cogs);
+        
     }
     void Movement()
     {

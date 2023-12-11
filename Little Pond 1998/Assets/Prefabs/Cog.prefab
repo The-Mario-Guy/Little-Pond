@@ -135,7 +135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c87a36ec1a79ae4e81a17e30e4032c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectedSFX: {fileID: 8676957862035366126}
+  sounds:
+  - {fileID: 8300000, guid: ae2e96a31319440a1a1eecb63659317a, type: 3}
+  - {fileID: 8300000, guid: 79f942dc611ce4f599edc9453c6b2376, type: 3}
+  - {fileID: 8300000, guid: 1ea61c3a06fb848c680656f40c8e12a9, type: 3}
 --- !u!65 &2351226740124292140
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -155,7 +158,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7152894, y: 0.88746154, z: 0.20000002}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: -0.065118305, y: -0.025374807, z: 0}
 --- !u!82 &8676957862035366126
 AudioSource:
