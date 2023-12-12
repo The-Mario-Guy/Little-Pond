@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                Debug.LogError("Game Manager Error uh oh :<");
+                
             }
             return _instance;
         }
