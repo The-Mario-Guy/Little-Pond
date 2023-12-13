@@ -21,6 +21,7 @@
 			float3 _DitherResolution;
 			sampler2D _MainTex;
 			float _HighResDitherMatrix;
+			float _DitheringScale;
 
 			struct appdata
 			{
@@ -62,7 +63,7 @@
 				return (ditherOffset < distance / ditherStep - 0.001f) ? baseValue + ditherStep : baseValue;
 			}
 
-			float GetDitherThreshold(float2 pixelPosition) 
+			float GetDitherThreshold(unsigned int2 pixelPosition) 
 			{
 				const int ditheringMatrix4x4[16] =
 				{
@@ -94,8 +95,8 @@
 
 			fixed4 frag(v2f i, UNITY_VPOS_TYPE screenPos : VPOS) : SV_Target
 			{
-				const int2 pixelPosition = screenPos.xy;
-				const float ditherThreshold = GetDitherThreshold(pixelPosition);
+				const float2 pixelPosition = screenPos.xy;
+				const float ditherThreshold = GetDitherThreshold(floor(pixelPosition * _DitheringScale));
 				const float3 ditherStep = 1.0f / max(_DitherResolution, 1.0f);
 				const float3 colorStep = 1.0f / max(_ColorResolution, 1.0f);
 

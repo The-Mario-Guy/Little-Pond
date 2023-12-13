@@ -596,37 +596,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1230498322
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1230498323}
-  m_Layer: 0
-  m_Name: Scene optimized for Gamma Space and a 240p resolution
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1230498323
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1230498322}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 740.98047, y: -3.1315708, z: 643.4795}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1264080928
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,13 +629,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433faa8b758afed4f9295b193c697276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ColorEmulationMode: 3
+  _PixelationFactor: 0.2
+  _ColorEmulationMode: 2
   _FullscreenColorDepth: {x: 256, y: 256, z: 256}
   _FullscreenDitherDepth: {x: 32, y: 32, z: 32}
   _DitheringMatrixSize: 2
+  _DitheringScale: 0.2
   _InterlacingSize: 1
   _PostProcessShader: {fileID: 4800000, guid: 56d52fd5b7c6911468179e5a7359ce0e, type: 3}
   _PostProcessShaderAccurate: {fileID: 4800000, guid: 2ebed186567d3c244a87538744a62920, type: 3}
+  _PixelationShader: {fileID: 4800000, guid: f2da0e2a14a532548b5db043244b3df1, type: 3}
   _InterlacingShader: {fileID: 4800000, guid: 03ebd34214b41ef459d7ee6753b062be, type: 3}
 --- !u!114 &1264080930
 MonoBehaviour:
@@ -682,7 +654,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _TextureWarpingFactor: 1
   _TextureWarpingMode: 0
-  _VertexGridResolution: 150
+  _VertexGridResolution: 50
+  _VertexWobbleMode: 1
   _UseRetroVertexLighting: 1
   _RetroLightingNormalFactor: 0.5
   _RetroLightFalloffStart: 0.75
@@ -987,8 +960,48 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1757766189, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757766189, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
+      propertyPath: m_Range
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757766189, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
       propertyPath: m_Intensity
       value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757766189, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
+      propertyPath: m_SpotAngle
+      value: 64.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757766190, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00534
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757766190, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00011
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757766190, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.00956
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757766190, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.61289924
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757766190, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.35070178
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757766190, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.3859897
+      objectReference: {fileID: 0}
+    - target: {fileID: 1757766190, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5936117
       objectReference: {fileID: 0}
     - target: {fileID: 198467386223979024, guid: 56e88173fb5087f49afceeb024b96138, type: 3}
       propertyPath: m_Name

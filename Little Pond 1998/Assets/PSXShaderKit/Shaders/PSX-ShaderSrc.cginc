@@ -55,6 +55,7 @@ float4 _EmissiveTex_ST;
 fixed _PSX_FlatShadingMode;
 #endif
 
+fixed _PSX_VertexWobbleMode;
 float _ObjectDithering;
 
 
@@ -63,9 +64,9 @@ float _ObjectDithering;
 float3 ShadePSXVertexLights (float4 vertex, float3 normal)
 {
 #ifdef PSX_ENABLE_CUSTOM_VERTEX_LIGHTING
-	return ShadePSXVertexLightsFull(vertex, normal, 4, false);
+	return ShadePSXVertexLightsFull(vertex, normal, 4, true);
 #else
-	return ShadeUnityVertexLightsFull(vertex, normal, 4, false);
+	return ShadeUnityVertexLightsFull(vertex, normal, 4, true);
 #endif
     
 }
@@ -146,8 +147,12 @@ void geom(triangle v2g IN[3], inout TriangleStream<g2f> triStream)
 
 	for (i = 0; i < 3; i++)
 	{
-		o[i].vertex.xyz = SnapVertexToGrid(o[i].vertex.xyz);
-		o[i].vertex = mul(matrix_p, o[i].vertex);
+		float4 viewSnappedVertex = float4(SnapVertexToGrid(o[i].vertex.xyz), o[i].vertex.w);
+		viewSnappedVertex = mul(matrix_p, viewSnappedVertex);
+		float4 clipSnappedVertex = mul(matrix_p, o[i].vertex);
+		clipSnappedVertex.xy = SnapVertexToGrid(clipSnappedVertex).xy;
+
+		o[i].vertex = lerp(viewSnappedVertex, clipSnappedVertex, _PSX_VertexWobbleMode);
 
 #ifdef PSX_VERTEX_LIT
 		o[i].color.rgb = lerp(o[i].color.rgb, averageLight, _FlatShading);

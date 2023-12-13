@@ -20,6 +20,11 @@ namespace PSXShaderKit
             Dither4x4 = 1,
             Dither4x4_PS1Pattern = 2
         }
+        [Header("Resolution")]
+        [SerializeField]
+        [Range(0.0f, 1.0f)]
+        [Tooltip("Fakes a low-resolution look by changing how pixel values are sampled. Match with DitheringScale if using Fullscreen_Customizable color emulation.")]
+        private float _PixelationFactor = 1;
 
         [Header("Color")]
         [SerializeField]
@@ -34,6 +39,11 @@ namespace PSXShaderKit
         [SerializeField]
         [Tooltip("The matrix size to use when dithering. 4x4 is higher quality with more patterns. The 4x4 matrix with the PS1 pattern is the most accurate but darkens the image compared to the rest.")]
         private DitheringMatrixSize _DitheringMatrixSize = DitheringMatrixSize.Dither4x4_PS1Pattern;
+        [SerializeField]
+        [Range(0.0f, 1.0f)]
+        [Tooltip("Scales the dithering pattern so that it's more visible at high resolutions. This will look weird as different pixels within the pattern will still have different values. " +
+                 "The best way to make the dithering visible is to drop your rendering resolution and display your framebuffer with point filtering.")]
+        private float _DitheringScale = 1;
 
         [Header("Interlacing")]
         [SerializeField]
@@ -49,7 +59,9 @@ namespace PSXShaderKit
         private Shader _PostProcessShaderAccurate;
         private Material _PostProcessMaterialAccurate;
 
-        private RenderTexture _CurrentFrame;
+        [SerializeField]
+        private Shader _PixelationShader;
+        private Material _PixelationMaterial;
 
         [SerializeField]
         private Shader _InterlacingShader;
@@ -63,6 +75,11 @@ namespace PSXShaderKit
             if (_PostProcessShader != null && _PostProcessShader.isSupported)
             {
                 _PostProcessMaterial = new Material(_PostProcessShader);
+            }
+
+            if (_PixelationShader != null && _PixelationShader.isSupported)
+            {
+                _PixelationMaterial = new Material(_PixelationShader);
             }
 
             if (_PostProcessShaderAccurate != null && _PostProcessShaderAccurate.isSupported)
@@ -94,86 +111,101 @@ namespace PSXShaderKit
 
         void OnDisable()
         {
-            if (_CurrentFrame)
+            _IsFirstFrame = true;
+        }
+
+        void ApplyPixelationEffect(RenderTexture source, RenderTexture destination)
+        {
+            if (_PixelationFactor >= 1.0f)
             {
-                RenderTexture.ReleaseTemporary(_CurrentFrame);
+                Graphics.Blit(source, destination);
+                return;
             }
+
+            FilterMode sourceFilterMode = source.filterMode;
+            source.filterMode = FilterMode.Point;
+
+            _PixelationMaterial.SetFloat("_PixelationFactor", _PixelationFactor);
+            Graphics.Blit(source, destination, _PixelationMaterial);
+
+            source.filterMode = sourceFilterMode;
+        }
+
+        void ApplyDitheringEffect(RenderTexture source, RenderTexture destination)
+        {
+            switch (_ColorEmulationMode)
+            {
+                case ColorEmulationMode.Off:
+                case ColorEmulationMode.PerObject_Accurate:
+                    Graphics.Blit(source, destination);
+                    return;
+            }
+
+            switch (_ColorEmulationMode)
+            {
+                case ColorEmulationMode.Fullscreen_Customizable:
+                    _PostProcessMaterial.SetVector("_ColorResolution", _FullscreenColorDepth);
+                    _PostProcessMaterial.SetVector("_DitherResolution", _FullscreenDitherDepth);
+                    _PostProcessMaterial.SetFloat("_DitheringScale", _DitheringScale);
+                    switch (_DitheringMatrixSize)
+                    {
+                        case DitheringMatrixSize.Dither2x2:
+                            _PostProcessMaterial.SetFloat("_HighResDitherMatrix", 0);
+                            break;
+                        case DitheringMatrixSize.Dither4x4:
+                            _PostProcessMaterial.SetFloat("_HighResDitherMatrix", 0.5f);
+                            break;
+                        case DitheringMatrixSize.Dither4x4_PS1Pattern:
+                            _PostProcessMaterial.SetFloat("_HighResDitherMatrix", 1.0f);
+                            break;
+                    }
+                    Graphics.Blit(source, destination, _PostProcessMaterial);
+                    break;
+                case ColorEmulationMode.Fullscreen_Accurate:
+                    _PostProcessMaterialAccurate.SetFloat("_DitheringScale", _DitheringScale);
+                    Graphics.Blit(source, destination, _PostProcessMaterialAccurate);
+                    break;
+            }
+        }
+
+        void ApplyInterlacingEffect(RenderTexture source, RenderTexture destination)
+        {
+            if (_InterlacingSize <= 0)
+            {
+                Graphics.Blit(source, destination);
+                return;
+            }
+
+            _InterlacingMaterial.SetFloat("_InterlacedFrameIndex", Time.frameCount % 2);
+            _InterlacingMaterial.SetFloat("_InterlacingSize", _InterlacingSize);
+            _InterlacingMaterial.SetTexture("_PreviousFrame", _IsFirstFrame ? source : _PreviousFrame);
+            _IsFirstFrame = false;
+
+            Graphics.Blit(source, destination, _InterlacingMaterial);
 
             if (_PreviousFrame)
             {
                 RenderTexture.ReleaseTemporary(_PreviousFrame);
             }
+            _PreviousFrame = RenderTexture.GetTemporary(source.descriptor);
+            Graphics.Blit(source, _PreviousFrame);
 
-            _IsFirstFrame = true;
+            RenderTexture.active = destination;
         }
 
         void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
-            _PostProcessMaterial.SetVector("_ColorResolution", _FullscreenColorDepth);
-            _PostProcessMaterial.SetVector("_DitherResolution", _FullscreenDitherDepth);
-            switch (_DitheringMatrixSize)
-            {
-                case DitheringMatrixSize.Dither2x2:
-                    _PostProcessMaterial.SetFloat("_HighResDitherMatrix", 0);
-                    break;
-                case DitheringMatrixSize.Dither4x4:
-                    _PostProcessMaterial.SetFloat("_HighResDitherMatrix", 0.5f);
-                    break;
-                case DitheringMatrixSize.Dither4x4_PS1Pattern:
-                    _PostProcessMaterial.SetFloat("_HighResDitherMatrix", 1.0f);
-                    break;
-            }
+            RenderTexture pixelationRT = RenderTexture.GetTemporary(source.descriptor);
+            pixelationRT.filterMode = FilterMode.Point;
+            ApplyPixelationEffect(source, pixelationRT);
 
-            RenderTexture postProcessDest;
-            if(_InterlacingSize > 0)
-            {
-                if (_CurrentFrame)
-                {
-                    RenderTexture.ReleaseTemporary(_CurrentFrame);
-                }
-                _CurrentFrame = RenderTexture.GetTemporary(source.descriptor);
-                postProcessDest = _CurrentFrame;
-            }
-            else
-            {
-                postProcessDest = destination;
-            }
+            RenderTexture ditheringRT = RenderTexture.GetTemporary(source.descriptor);
+            ditheringRT.filterMode = FilterMode.Point;
+            ApplyDitheringEffect(pixelationRT, ditheringRT);
+            RenderTexture.ReleaseTemporary(pixelationRT);
 
-            switch (_ColorEmulationMode)
-            {
-                case ColorEmulationMode.Off:
-                case ColorEmulationMode.PerObject_Accurate:
-                    Graphics.Blit(source, postProcessDest);
-                    break;
-                case ColorEmulationMode.Fullscreen_Customizable:
-                    Graphics.Blit(source, postProcessDest, _PostProcessMaterial);
-                    break;
-                case ColorEmulationMode.Fullscreen_Accurate:
-                    Graphics.Blit(source, postProcessDest, _PostProcessMaterialAccurate);
-                    break;
-            }
-
-            if (_InterlacingSize <= 0)
-            {
-                _IsFirstFrame = true;
-            }
-            else
-            {
-                _InterlacingMaterial.SetFloat("_InterlacedFrameIndex", Time.frameCount % 2);
-                _InterlacingMaterial.SetFloat("_InterlacingSize", _InterlacingSize);
-                _InterlacingMaterial.SetTexture("_PreviousFrame", _IsFirstFrame ? _CurrentFrame : _PreviousFrame);
-                _IsFirstFrame = false;
-                Graphics.Blit(_CurrentFrame, destination, _InterlacingMaterial);
-
-                if (_PreviousFrame)
-                {
-                    RenderTexture.ReleaseTemporary(_PreviousFrame);
-                }
-                _PreviousFrame = RenderTexture.GetTemporary(source.descriptor);
-                Graphics.Blit(_CurrentFrame, _PreviousFrame);
-
-                RenderTexture.active = destination;
-            }
+            ApplyInterlacingEffect(ditheringRT, destination);
+            RenderTexture.ReleaseTemporary(ditheringRT);
         }
     }
 }

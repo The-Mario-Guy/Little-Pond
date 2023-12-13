@@ -40,14 +40,15 @@ sampler2D _EmissiveTex;
 float4 _EmissiveTex_ST;
 #endif
 
+fixed _PSX_VertexWobbleMode;
 float _ObjectDithering;
 
 float3 ShadePSXVertexLights (float4 vertex, float3 normal)
 {
 #ifdef PSX_ENABLE_CUSTOM_VERTEX_LIGHTING
-	return ShadePSXVertexLightsFull(vertex, normal, 4, false);
+	return ShadePSXVertexLightsFull(vertex, normal, 4, true);
 #else
-	return ShadeUnityVertexLightsFull(vertex, normal, 4, false);
+	return ShadeUnityVertexLightsFull(vertex, normal, 4, true);
 #endif
     
 }
@@ -78,8 +79,12 @@ v2f vert(appdata v)
 	o.reflectionDir = reflect(viewDir, normalDir);
 #endif
 
-	o.vertex.xyz = SnapVertexToGrid(o.vertex.xyz);
-	o.vertex = mul(matrix_p, o.vertex);
+	float4 viewSnappedVertex = float4(SnapVertexToGrid(o.vertex.xyz), o.vertex.w);
+	viewSnappedVertex = mul(matrix_p, viewSnappedVertex);
+	float4 clipSnappedVertex = mul(matrix_p, o.vertex);
+	clipSnappedVertex.xy = SnapVertexToGrid(clipSnappedVertex).xy;
+
+	o.vertex = lerp(viewSnappedVertex, clipSnappedVertex, _PSX_VertexWobbleMode);
 
 	UNITY_TRANSFER_FOG(o, o.vertex);
 

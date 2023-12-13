@@ -107,6 +107,12 @@ float3 ShadePSXVertexLightsFull(float4 viewpos, float3 viewN, int lightCount, bo
 
 		float lightRange = sqrt(unity_LightAtten[i].w);
 		fixed atten = invLerp(lightRange, lightRange * _PSX_LightFalloffPercent, lightDist);
+		if (spotLight)
+		{
+			float rho = max(0, dot(toLight, unity_SpotDirection[i].xyz));
+			float spotAtt = (rho - unity_LightAtten[i].x) * unity_LightAtten[i].y;
+			atten *= saturate(spotAtt);
+		}
 
 		float diff = max(0, dot(viewN, toLight));
 		lightColor += unity_LightColor[i].rgb * saturate(atten) * 0.25 * lerp(1, diff, _PSX_LightingNormalFactor);

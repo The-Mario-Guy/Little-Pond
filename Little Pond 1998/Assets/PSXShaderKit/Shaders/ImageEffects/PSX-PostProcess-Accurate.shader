@@ -18,6 +18,7 @@
 			#include "UnityCG.cginc"
 
 			sampler2D _MainTex;
+			float _DitheringScale;
 
 			struct appdata
 			{
@@ -66,7 +67,7 @@
 			fixed4 frag(v2f i, UNITY_VPOS_TYPE screenPos : VPOS) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
-				return PSX_DitherColor(col, screenPos.xy);
+				return PSX_DitherColor(col, floor(screenPos.xy * _DitheringScale));
 			}
 			ENDCG
 		}

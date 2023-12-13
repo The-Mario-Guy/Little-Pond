@@ -12,6 +12,11 @@ namespace PSXShaderKit
             Stable = 0,
             Accurate = 1
         }
+        enum PSXVertexWobbleMode
+        {
+            ViewSpace = 0,
+            ClipSpace = 1
+        }
 
         enum PSXFlatShadingMode
         {
@@ -42,6 +47,9 @@ namespace PSXShaderKit
         [Tooltip("The size of the grid that vertices will snap to. Smaller means more wobbling.")]
         [SerializeField]
         private float _VertexGridResolution = 100.0f;
+        [Tooltip("ViewSpace makes it so that the effect is decreased with distance to the object. ClipSpace is more accurate.")]
+        [SerializeField]
+        private PSXVertexWobbleMode _VertexWobbleMode = PSXVertexWobbleMode.ViewSpace;
 
         [Header("Vertex Lighting")]
         [Tooltip("Use custom vertex lighting with linear attenuation")]
@@ -86,6 +94,7 @@ namespace PSXShaderKit
             Shader.SetGlobalFloat("_PSX_LightFalloffPercent", _RetroLightFalloffStart);
             Shader.SetGlobalFloat("_PSX_FlatShadingMode", _FlatShadingMode == PSXFlatShadingMode.AverageLight ? 0 : 1);
             Shader.SetGlobalFloat("_PSX_TextureWarpingMode", _TextureWarpingMode == PSXTextureWarpingMode.Stable ? 0 : 1);
+            Shader.SetGlobalFloat("_PSX_VertexWobbleMode", _VertexWobbleMode == PSXVertexWobbleMode.ViewSpace ? 0 : 1);
 
             if (_UseRetroVertexLighting)
             {
@@ -104,7 +113,7 @@ namespace PSXShaderKit
             {
                 Shader.DisableKeyword("PSX_FLAT_SHADING_MODE_CENTER");
             }
-
+            
             Shader.DisableKeyword("PSX_TRIANGLE_SORT_OFF");
             Shader.DisableKeyword("PSX_TRIANGLE_SORT_CENTER_Z");
             Shader.DisableKeyword("PSX_TRIANGLE_SORT_CLOSEST_Z");
