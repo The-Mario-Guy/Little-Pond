@@ -15,9 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Title Screen.unity
     guid: 8a7050b631857f248a7720f2e2a696f0
   - enabled: 1
-    path: Assets/Scenes/Test Room 1.unity
+    path: Assets/Scenes/Inside of House.unity
+    guid: 6763d0dfeaed84b67931d90af2ef11fa
+  - enabled: 1
+    path: Assets/Scenes/Dew's House Outside.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Test Room 2.unity
-    guid: c784748815de330488f9a119ded0c82f
+    path: Assets/Scenes/Section 2.unity
+    guid: 6ca066870f3d846dfa99a05fbf753cd0
   m_configObjects: {}
