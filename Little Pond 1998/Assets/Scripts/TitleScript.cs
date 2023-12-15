@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 public class TitleScript : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public int sceneNumber;
+    public float transitionTime = 1f;
+    public Animator transition;
     void Start()
     {
         Cursor.visible = true; 
@@ -17,7 +21,7 @@ public class TitleScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadScene(2);
+            LoadNextLevel();
         }
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
@@ -26,5 +30,16 @@ public class TitleScript : MonoBehaviour
         
         
     }
-   
+    public void LoadNextLevel()
+    {
+        StartCoroutine(LoadLevel());
+    }
+
+    IEnumerator LoadLevel()
+    {
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(sceneNumber);
+    }
+
 }
