@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,12 +15,13 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _cogs = 0;
+
     }
 
     private void Update()
     {
         UpdateCogText(_cogs);
-     
+       
     }
 
 
@@ -58,5 +60,12 @@ public class GameManager : MonoBehaviour
         cogtText.text = "" + cog;
     }
 
+    public void gameEnd()
+    {
+        if (_cogs == 60)
+        {
+            SceneManager.LoadScene(8);
+        }
+    }
 
 }
