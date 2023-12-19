@@ -5,15 +5,21 @@ using UnityEngine;
 public class MainPlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float _moveSpeed = 20;
+    public float moveSpeed = 4;
     public Rigidbody _rigidBody;
+    public Animator anim;
 
     //[SerializeField] private int _cogs;
     private static MainPlayerController _instance;
-    
+    Vector3 movement;
+ 
+
+
     void Start()
     {
-        //_cogs = 0;
+        anim = GetComponent<Animator>();
+
+    
     }
 
     // Update is called once per frame
@@ -21,16 +27,23 @@ public class MainPlayerController : MonoBehaviour
     {
         //OG UIManager
         Movement();
-        
-        
+        anim.SetFloat("Horizontal", movement.x);
+        anim.SetFloat("Vertical", movement.y);
+        anim.SetFloat("Speed", movement.sqrMagnitude);
+
+
     }
     void Movement()
     {
-        float xValue = Input.GetAxis("Horizontal") * _moveSpeed * Time.deltaTime;
-        float zValue = Input.GetAxis("Vertical") * _moveSpeed * Time.deltaTime;
+        float xValue = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+       
+        float zValue = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+
+        
 
         transform.Translate(xValue, 0f, zValue);
 
+   
     }
     public static MainPlayerController Instance
     {
@@ -48,9 +61,7 @@ public class MainPlayerController : MonoBehaviour
     {
         _instance = this;
     }
-    //public void AddCoins()
-    //{
-    //    _cogs++;
-    //}
+
+
 
 }
